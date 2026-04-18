@@ -1,0 +1,409 @@
+/* ==========================================================================
+   De Naad — Florian Cascino
+   Kleurenpalet:
+     Navy:   #3A5169
+     Warm:   #C49A6C
+     Donker: #1D1D2B
+     Achtergrond: #F6F3EF
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --navy: #3A5169;
+    --warm: #C49A6C;
+    --dark: #1D1D2B;
+    --bg: #F6F3EF;
+    --white: #FFFFFF;
+    --font-heading: Georgia, 'Times New Roman', Times, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--dark);
+    background-color: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Utility ---------- */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Hero ---------- */
+
+#hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: normal;
+    color: var(--dark);
+    line-height: 1.4;
+    margin-bottom: 1.25rem;
+}
+
+.hero-sub {
+    font-size: 0.9rem;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+}
+
+/* ---------- Scenes (shared) ---------- */
+
+.scene {
+    padding: 4rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.scene + .scene {
+    padding-top: 2rem;
+}
+
+.scene h2 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: normal;
+    color: var(--navy);
+    margin-bottom: 1.75rem;
+}
+
+/* ---------- Fade-in on scroll ---------- */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ---------- Placeholder text ---------- */
+
+.placeholder {
+    background-color: rgba(196, 154, 108, 0.1);
+    border-left: 2px solid var(--warm);
+    padding: 0.75rem 1rem;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    color: var(--navy);
+    line-height: 1.55;
+}
+
+.todo-note {
+    font-size: 0.8rem;
+    color: var(--navy);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* ---------- Scene 1: Deltawerken ---------- */
+
+.scene-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.scene-visual {
+    max-width: 100%;
+}
+
+.scene-visual .sketch {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.scene-visual figcaption {
+    margin-top: 0.5rem;
+}
+
+.scene-text p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.slider-group {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.slider-group label {
+    font-size: 0.85rem;
+    color: var(--navy);
+}
+
+.slider-group input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--warm);
+    border-radius: 2px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.slider-group input[type="range"]:hover,
+.slider-group input[type="range"]:focus-visible {
+    opacity: 1;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--navy);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--navy);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+/* SVG layer transitions */
+.sketch .layer {
+    transition: transform 0.3s ease;
+}
+
+/* ---------- Scene 2: Rabobank ---------- */
+
+.scene-text-block {
+    position: relative;
+}
+
+.rabo-text {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.rabo-text.active {
+    opacity: 1;
+    max-height: 300px;
+}
+
+.rabo-text p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.text-button {
+    display: inline-block;
+    margin-top: 1.25rem;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--navy);
+    cursor: pointer;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--warm);
+    transition: border-color 0.2s;
+}
+
+.text-button:hover,
+.text-button:focus-visible {
+    border-bottom-color: var(--navy);
+}
+
+/* ---------- Scene 3: Onderzoek ---------- */
+
+#scene-3 > p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+}
+
+.quotes {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.quotes blockquote {
+    border-left: 2px solid var(--warm);
+    padding-left: 1.25rem;
+    font-style: italic;
+}
+
+.quotes blockquote p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--dark);
+}
+
+.research-question {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--navy);
+}
+
+/* ---------- Scene 4: TNO ---------- */
+
+.tno-list {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.tno-list dt {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+}
+
+.tno-list dd {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-left: 0;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 2.5rem;
+    border-top: 1px solid rgba(58, 81, 105, 0.12);
+    font-size: 0.85rem;
+    color: var(--navy);
+}
+
+footer p {
+    margin-bottom: 0.35rem;
+}
+
+footer a {
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--warm);
+    transition: border-color 0.2s;
+}
+
+footer a:hover,
+footer a:focus-visible {
+    border-bottom-color: var(--navy);
+}
+
+.last-updated {
+    margin-top: 1rem;
+    opacity: 0.5;
+    font-size: 0.8rem;
+}
+
+/* ---------- Desktop (>=1024px) ---------- */
+
+@media (min-width: 1024px) {
+    .hero-content h1 {
+        font-size: 2.1rem;
+    }
+
+    .scene {
+        padding: 5rem 2rem;
+    }
+
+    .scene + .scene {
+        padding-top: 3rem;
+    }
+
+    .scene-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: 3rem;
+    }
+
+    .scene h2 {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        padding: 4rem 2rem 3rem;
+    }
+}
+
+/* ---------- Focus styles ---------- */
+
+:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible) {
+    outline: none;
+}
