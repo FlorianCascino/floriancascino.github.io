@@ -1,102 +1,80 @@
-# De Naad — Florian Cascino
+# Florian Cascino, voor TNO.
 
-Een enkele pagina voor het TNO Traineeship. De pagina zit achter een QR-code op een PowerPoint-slide en laat zien hoe Florian werkt: op de naad tussen techniek, beleid en gedrag. Vier scènes uit zijn werk en onderzoek, rustig en eerlijk verteld.
-
----
-
-## Wat Florian nog moet invullen
-
-Alle tekst die hieronder staat moet door Florian zelf worden geschreven. De items staan in de HTML als `[PLACEHOLDER — ...]` blokken met een lichte achtergrond.
-
-### Scene 1 — Bij de Deltawerken
-1. Twee tot drie zinnen over het werk bij de Deltawerken (wat was de situatie, wat viel op, waar zat de naad).
-
-### Scene 2 — Bij de Rabobank
-2. Één zin over een keuze die Florian maakte bij de Rabobank (de "voor"-versie).
-3. Één zin over hoe hij die keuze een jaar later zag (de "na"-versie).
-
-### Scene 3 — Wat ik nu onderzoek
-4. Korte alinea in gewoon Nederlands over het Honours-onderzoek naar twijfel in innovatiepraktijk.
-5. Drie geanonimiseerde interviewcitaten.
-6. Eén zin: de onderzoeksvraag die Florian zelf onderzoekt.
-
-### Scene 4 — Wat ik bij TNO zoek
-7. Eén zin: wat ik wil bijdragen.
-8. Eén zin: wat ik wil leren.
-9. Eén zin: de vraag die ik bij het gesprek wil stellen.
-
-### Footer
-10. LinkedIn-URL invullen (nu staat er "PLACEHOLDER").
-11. Datum van laatste update controleren.
-
-### TODO: schetsen
-12. **Scene 1 SVG-schets**: vervang de placeholder-SVG in `index.html` door een eigen handtekening. Zie hieronder voor instructies.
+Een interactieve single-page website als aanvulling op de motivatiebrief voor het TNO Traineeship. De pagina laat via drie acts zien hoe Florian werkt, in plaats van erover te vertellen. De bezoeker ervaart het, en leest daarna de reflectie.
 
 ---
 
 ## Lokaal draaien
 
-Open `index.html` in een browser, of gebruik VS Code met de Live Server-extensie:
+Open `index.html` in een browser, of gebruik VS Code met Live Server:
 
 1. Installeer de extensie "Live Server" in VS Code.
-2. Klik rechts op `index.html` en kies "Open with Live Server".
+2. Rechtsklik op `index.html`, kies "Open with Live Server".
 
-Er is geen build-stap nodig.
-
----
-
-## Een placeholder-schets vervangen door een eigen tekening
-
-### Optie A: SVG (aanbevolen)
-1. Teken de schets op papier en scan of fotografeer deze.
-2. Gebruik een tool als [SVGTrace](https://svgtrace.com) of Illustrator om er een SVG van te maken.
-3. Zorg dat de SVG een `viewBox` heeft (bv. `viewBox="0 0 400 300"`).
-4. Open `index.html` en zoek naar `<!-- TODO: Vervang deze placeholder-SVG -->`.
-5. Vervang de hele `<svg class="sketch" ...>...</svg>` door de eigen SVG. Houd `class="sketch"` en het `role="img"` attribuut.
-6. Pas de `aria-label` aan zodat deze beschrijft wat de tekening laat zien.
-
-### Optie B: PNG/JPG
-1. Scan de tekening op minimaal 800px breed.
-2. Sla het bestand op als `delta-schets.png` in de root van het project.
-3. Vervang de `<svg>` door: `<img src="delta-schets.png" alt="Schets van een waterkering in doorsnede." class="sketch">`.
-4. Houd het bestand onder 200KB voor de totale pagina-grootte.
-
-SVG heeft de voorkeur: schaalbaar, licht, en past bij de rest van de pagina.
+Geen build-stap nodig. Alle code staat in drie bestanden: `index.html`, `style.css`, `script.js`.
 
 ---
 
-## Beslissingen
+## Overrulen van stijl of tekst
 
-Hieronder staan keuzes die gemaakt zijn. Pas ze aan als ze niet passen.
+### Kleuren
+Alle kleuren staan bovenaan `style.css` in CSS custom properties:
+```css
+--ink: #1a2d4a;    /* inktblauw, koppen en accenten */
+--beige: #d6c4a8;  /* warm-beige, lijnen en subtiele accenten */
+--dark: #1c1c1c;   /* warm-zwart, lopende tekst */
+--bg: #faf8f4;     /* achtergrond */
+```
+Pas deze vier waardes aan om het hele palet te wijzigen.
 
-**Kleurenpalet**
-- Dusty navy: `#3A5169` — hoofdkleur voor koppen, knoppen, en de tekening.
-- Warm zand: `#C49A6C` — accentkleur voor randen en de slider-track. Niet gebruikt voor lopende tekst (te laag contrast).
-- Donker: `#1D1D2B` — voor broodtekst.
-- Achtergrond: `#F6F3EF` — warm wit.
+### Typografie
+Koppen gebruiken Georgia (systeemfont). Broodtekst gebruikt Inter via Google Fonts. Om Inter te vervangen: pas de `<link>` in `index.html` aan en wijzig `--font-body` in `style.css`.
 
-**Typografie**
-- Georgia voor de hero-zin en sectiekoppen.
-- Inter (Google Fonts, 400 en 500) voor broodtekst.
-- Fallback-stack voor beide.
+### Tekst op de pagina
+Alle zichtbare Nederlandse tekst staat letterlijk in `index.html` (HTML) en `script.js` (de act-1 zinnen, act-2 ranges, en act-3 observaties). Zoek op de tekst en vervang.
 
-**Hero-animatie**
-- Drie wolken van kleine stippen op een canvas. Drijven langzaam in een lissajous-achtig patroon.
-- Desktop: volgen de muis met traagheid. Mobiel: proberen device-orientation te gebruiken, anders alleen drift. Touch-input werkt ook.
-- Bij `prefers-reduced-motion`: statische stippen, geen beweging.
-- Easing: 0.018 per frame als inertiefactor. Voelt rustig, niet plakkerig.
+---
 
-**Slider (Scene 1)**
-- De drie SVG-lagen verschuiven verticaal op basis van de slider-waarde. Midden (50) = uitgelijnde standaardpositie. Naar de randen toe drijven de lagen uit elkaar.
-- Maximale verschuiving: 22px per laag.
+## Wat nog PLACEHOLDER is
 
-**Cross-fade (Scene 2)**
-- Wissel via CSS opacity + max-height. Geen JavaScript-animatiebibliotheek.
-- Knoptekst wisselt mee: "en zo zag ik het een jaar later." ↔ "en zo zag ik het daarvoor."
+- LinkedIn-URL in de signoff-sectie (staat nu op `https://linkedin.com/in/PLACEHOLDER`).
+- Datum laatste update (staat op "april 2026").
 
-**Scroll fade-in**
-- IntersectionObserver met threshold 0.12. Eenmalig: zodra zichtbaar, blijft zichtbaar.
-- Uitgeschakeld bij `prefers-reduced-motion`.
+---
 
-**Paginagewicht**
-- HTML + CSS + JS samen onder 15KB. Inter font (woff2) rond 80KB. Totaal ruim onder 500KB.
+## Decisions
+
+Keuzes die gemaakt zijn en die Florian kan willen aanpassen.
+
+### Kleurenpalet
+Het voorgestelde palet uit het prompt is ongewijzigd overgenomen: inktblauw `#1a2d4a`, warm-beige `#d6c4a8`, warm-zwart `#1c1c1c`, achtergrond `#faf8f4`. Contrast van `--dark` op `--bg` is ruim boven WCAG AA (>12:1). `--ink` op `--bg` haalt 9.4:1. `--beige` op `--bg` is 2.3:1, daarom alleen gebruikt voor decoratieve lijnen, nooit voor tekst.
+
+### Hero-lijn
+Een SVG-pad dat zichzelf tekent via `stroke-dasharray`/`stroke-dashoffset` over 4.5 seconden met ease-in-out. De lijn heeft een knik op 48% van de breedte (10% omhoog). Adembeweging: sinusgolf met amplitude 3px en frequentie ~0.015 rad/frame. Desktop: snelle muisbewegingen verhogen `fragmentation` (0 tot 1), wat de lijn in streepjes opbreekt. Stilstand heelt met factor 0.96/frame. Deze waardes staan bovenaan de hero-sectie in `script.js`.
+
+### Custom cursor
+Open cirkel van 8px, groeit naar 14px op interactieve elementen. Alleen op apparaten met `pointer: fine`. Op touch-apparaten: standaard systeemcursor plus een subtiele opacity-pulse bij tap (CSS `@keyframes tap-pulse`). De groei-transitie is 200ms ease.
+
+### Act 1 state machine
+Vijf zinnen op een schaal van breed naar scherp, index 0 tot 4. Startindex 2. De knoppen "breder" en "scherper" worden visueel uitgeschakeld (`opacity: 0.25`) aan de randen. Cross-fade is 400ms totaal (200ms fade-out, tekst wissel, 200ms fade-in). De labels van "wiens vraag" zijn absoluut gepositioneerd rond de hoofdzin met vaste offsets per label.
+
+### Act 2 slider
+Het "ik"-streepje staat vast op `left: 65%` en beweegt niet met de slider-thumb. Dat is bewust: de reflectietekst eronder verwijst naar "iets voorbij het midden". De tekst-fade is 250ms (125ms uit, 125ms in). De vijf tekstranges zijn hard gecodeerd in `script.js` als `act2Ranges`.
+
+### Act 3 spring physics
+Parameters:
+- `SPRING_K = 0.003` (veerstijfheid tussen verbonden nodes)
+- `REST_K = 0.02` (terugkeer naar rustpositie)
+- `DAMPING = 0.88` (snelheidsdemping per frame)
+- `COLLINEAR_K = 0.015` (anti-collineaire kracht, duwt nodes uit lijn als ze te recht staan)
+- Drempel voor anti-collineaire kracht: 40px loodrechte afstand.
+- Nodes zijn beperkt tot 30 tot 370 horizontaal, 30 tot 330 verticaal (binnen de SVG viewBox van 400x360).
+
+De physics-loop pauzeert via IntersectionObserver wanneer Act 3 buiten beeld is. Bij `prefers-reduced-motion`: geen physics, statische posities, observaties direct zichtbaar bij focus.
+
+Drag werkt via `mousedown`/`touchstart` op de node-groepen. Tijdens drag is de node vast en worden de andere nodes nog steeds door veren getrokken. Bij loslaten begint de terugkeer naar de rustpositie.
+
+Hit-areas voor de lijnen zijn onzichtbare paden met `stroke-width: 24` achter de zichtbare lijnen.
+
+### Paginagewicht
+HTML + CSS + JS samen rond 25KB. Inter font (woff2) rond 80KB. Totaal ruim onder 500KB.
