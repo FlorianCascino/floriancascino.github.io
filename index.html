@@ -3,124 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Florian Cascino, voor TNO.</title>
-    <meta name="description" content="Een interactieve pagina bij de sollicitatie van Florian Cascino voor het TNO Traineeship, als aanvulling op zijn motivatiebrief.">
-    <meta name="theme-color" content="#faf8f4">
+    <title>Voorbij wat je weet</title>
+    <meta name="description" content="Een interactieve pagina bij de sollicitatie van Florian Cascino voor het TNO Traineeship.">
+    <meta name="theme-color" content="#fbfaf6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="locked">
     <div id="custom-cursor" aria-hidden="true"></div>
 
     <main>
-        <!-- Hero -->
-        <section id="hero" aria-label="Introductie">
-            <svg id="hero-line" aria-hidden="true" preserveAspectRatio="none">
-                <path id="hero-path" fill="none" stroke="#1a2d4a" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            <div class="hero-content">
-                <h1>De brief is het antwoord. Dit is de vraag die ik nog niet beantwoord heb.</h1>
-                <p class="hero-sub">Florian Cascino, voor het TNO Traineeship.</p>
-            </div>
-        </section>
+        <section id="experience" class="experience" aria-labelledby="page-title">
+            <h1 id="page-title" class="sr-only">Voorbij wat je weet</h1>
+            <p class="sr-only">
+                Deze interactieve pagina laat zien hoe een vertrouwde kennisruimte pas openbreekt
+                wanneer je in de ogenschijnlijke leegte blijft.
+            </p>
 
-        <!-- Act 1 -->
-        <section id="act-1" class="act fade-in" aria-label="Hoe ik werk">
-            <p class="act-label">I. Hoe ik werk.</p>
-            <p class="act-instruction">Dit is een vraag uit mijn werk. Verplaats haar met de knoppen hieronder. Je ziet hoe ik ermee werk.</p>
-            <div class="act1-stage">
-                <div id="act1-labels" class="act1-labels" aria-live="polite" aria-hidden="true">
-                    <span class="act1-label" data-index="0">bestuurder</span>
-                    <span class="act1-label" data-index="1">vakman</span>
-                    <span class="act1-label" data-index="2">bewoner</span>
-                    <span class="act1-label" data-index="3">wetenschapper</span>
-                    <span class="act1-label" data-index="4">jij</span>
+            <canvas id="experience-canvas" aria-hidden="true"></canvas>
+
+            <div class="overlay overlay-frame">
+                <div class="intro-panel">
+                    <p class="intro-kicker">Voorbij wat je weet</p>
+                    <p class="intro-copy">
+                        Het bekende reageert direct. Daarbuiten moet de beweging eerst weerstand verdragen,
+                        voordat er iets nieuws kan ontstaan.
+                    </p>
                 </div>
-                <p id="act1-sentence" class="act1-sentence" aria-live="polite">Wat doe je als een vraag iedereen tegelijk aangaat?</p>
-            </div>
-            <nav class="act1-controls" aria-label="Verplaats de vraag">
-                <a href="#" id="btn-breder" role="button" aria-label="Maak de vraag breder">breder</a>
-                <a href="#" id="btn-scherper" role="button" aria-label="Maak de vraag scherper">scherper</a>
-                <a href="#" id="btn-wiens" role="button" aria-pressed="false" aria-label="Toon wiens vraag het is">wiens vraag</a>
-            </nav>
-            <p class="act-reflection">Deze beweging tussen breed en scherp, en het vragen wiens vraag het eigenlijk is, is de kern van hoe ik werk. Bij TNO wil ik daarop verder oefenen.</p>
-        </section>
 
-        <!-- Act 2 -->
-        <section id="act-2" class="act fade-in" aria-label="De spanning die ik wil leren lezen">
-            <p class="act-label">II. De spanning die ik wil leren lezen.</p>
-            <p id="act2-sentence" class="act2-sentence" aria-live="polite">De koers ligt. Wie twijfelt, blijft stil.</p>
-            <div class="act2-slider-wrap">
-                <span class="act2-edge-label act2-edge-left">Alles blijft open.</span>
-                <div class="act2-track-wrap">
-                    <input type="range" id="act2-slider" min="0" max="100" value="65" aria-label="Schuif tussen openheid en vastheid">
-                    <div id="act2-ik" class="act2-ik" aria-hidden="true"><span>ik</span></div>
+                <div class="phase-panel" aria-live="polite">
+                    <p id="phase-label" class="phase-label">het bekende</p>
+                    <p id="phase-copy" class="phase-copy">hier trekt alles nog terug naar wat al vertrouwd is</p>
+                    <div class="phase-track" aria-hidden="true">
+                        <span class="phase-step is-active" data-step="known">het bekende</span>
+                        <span class="phase-step" data-step="threshold">de drempel</span>
+                        <span class="phase-step" data-step="transition">de overgang</span>
+                        <span class="phase-step" data-step="together">samen dragen</span>
+                    </div>
                 </div>
-                <span class="act2-edge-label act2-edge-right">De koers staat vast.</span>
             </div>
-            <p class="act-reflection">Ik sta vaak hier, iets voorbij het midden. Bij een lastige beslissing schuif ik verder naar rechts dan goed is voor de kamer. Wat ik bij TNO wil leren, is voelen wanneer die laatste stap nog kan wachten.</p>
+
+            <div class="overlay overlay-top" aria-hidden="true">
+                <p id="hint" class="hint"></p>
+            </div>
+
+            <div class="overlay overlay-side">
+                <div class="support-panel">
+                    <p class="support-kicker">collectieve stabiliteit</p>
+                    <p id="support-copy" class="support-copy" aria-live="polite">
+                        een enkel punt kan bewegen, maar houdt niets open
+                    </p>
+                    <div class="support-meter" aria-hidden="true">
+                        <span id="support-meter-fill" class="support-meter-fill"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overlay overlay-bottom">
+                <p id="unlock-copy" class="unlock-copy" aria-live="polite"></p>
+                <a id="scroll-cue" class="scroll-cue" href="#outro" aria-hidden="true" tabindex="-1">
+                    <span>scroll verder</span>
+                </a>
+            </div>
         </section>
 
-        <!-- Act 3 -->
-        <section id="act-3" class="act fade-in" aria-label="Waar ik impact wil maken">
-            <p class="act-label">III. Waar ik impact wil maken.</p>
-            <p id="act3-observation" class="act3-observation" aria-live="polite">&nbsp;</p>
-            <figure class="act3-figure">
-                <svg id="act3-svg" viewBox="0 0 400 360" role="img" aria-label="Netwerk van vier begrippen: vraag, vakmanschap, ervaring, durven. Beweeg over de lijnen voor observaties.">
-                    <title>Netwerk van vier begrippen verbonden door zes lijnen.</title>
-                    <!-- Lines (hit areas are wider invisible paths behind them) -->
-                    <g id="act3-lines">
-                        <line data-pair="vraag-vakmanschap" x1="100" y1="80" x2="300" y2="80" stroke="#d6c4a8" stroke-width="1.2"/>
-                        <line data-pair="vraag-ervaring" x1="100" y1="80" x2="100" y2="280" stroke="#d6c4a8" stroke-width="1.2"/>
-                        <line data-pair="vraag-durven" x1="100" y1="80" x2="300" y2="280" stroke="#d6c4a8" stroke-width="1.2"/>
-                        <line data-pair="vakmanschap-ervaring" x1="300" y1="80" x2="100" y2="280" stroke="#d6c4a8" stroke-width="1.2"/>
-                        <line data-pair="vakmanschap-durven" x1="300" y1="80" x2="300" y2="280" stroke="#d6c4a8" stroke-width="1.2"/>
-                        <line data-pair="ervaring-durven" x1="100" y1="280" x2="300" y2="280" stroke="#d6c4a8" stroke-width="1.2"/>
-                    </g>
-                    <!-- Hit areas for lines (wider, invisible) -->
-                    <g id="act3-hitlines" fill="none" stroke="transparent" stroke-width="24">
-                        <line data-pair="vraag-vakmanschap" x1="100" y1="80" x2="300" y2="80"/>
-                        <line data-pair="vraag-ervaring" x1="100" y1="80" x2="100" y2="280"/>
-                        <line data-pair="vraag-durven" x1="100" y1="80" x2="300" y2="280"/>
-                        <line data-pair="vakmanschap-ervaring" x1="300" y1="80" x2="100" y2="280"/>
-                        <line data-pair="vakmanschap-durven" x1="300" y1="80" x2="300" y2="280"/>
-                        <line data-pair="ervaring-durven" x1="100" y1="280" x2="300" y2="280"/>
-                    </g>
-                    <!-- Nodes -->
-                    <g id="act3-nodes">
-                        <g class="act3-node" data-node="vraag" tabindex="0" role="button" aria-label="Knooppunt: vraag">
-                            <circle cx="100" cy="80" r="28" fill="#faf8f4" stroke="#d6c4a8" stroke-width="1.2"/>
-                            <text x="100" y="84" text-anchor="middle" fill="#1c1c1c" font-size="13" font-family="'Inter', sans-serif">vraag</text>
-                        </g>
-                        <g class="act3-node" data-node="vakmanschap" tabindex="0" role="button" aria-label="Knooppunt: vakmanschap">
-                            <circle cx="300" cy="80" r="28" fill="#faf8f4" stroke="#d6c4a8" stroke-width="1.2"/>
-                            <text x="300" y="84" text-anchor="middle" fill="#1c1c1c" font-size="13" font-family="'Inter', sans-serif">vakmanschap</text>
-                        </g>
-                        <g class="act3-node" data-node="ervaring" tabindex="0" role="button" aria-label="Knooppunt: ervaring">
-                            <circle cx="100" cy="280" r="28" fill="#faf8f4" stroke="#d6c4a8" stroke-width="1.2"/>
-                            <text x="100" y="284" text-anchor="middle" fill="#1c1c1c" font-size="13" font-family="'Inter', sans-serif">ervaring</text>
-                        </g>
-                        <g class="act3-node" data-node="durven" tabindex="0" role="button" aria-label="Knooppunt: durven">
-                            <circle cx="300" cy="280" r="28" fill="#faf8f4" stroke="#d6c4a8" stroke-width="1.2"/>
-                            <text x="300" y="284" text-anchor="middle" fill="#1c1c1c" font-size="13" font-family="'Inter', sans-serif">durven</text>
-                        </g>
-                    </g>
-                </svg>
-            </figure>
-            <p class="act-reflection">Dit zijn mijn vier. Niet als theorie, wel als wat ik in een kamer op zoek ga. Als er één ontbreekt, valt het werk stil. Bij TNO zou ik graag beter leren lezen welke er op welk moment ontbreekt.</p>
-        </section>
-
-        <!-- Signoff -->
-        <section id="signoff" class="fade-in" aria-label="Afsluiting">
-            <p class="signoff-sentence">Dit is hoe ik werk. Ik hoop dat ik bij TNO verder mag leren hoe het beter kan.</p>
-            <address class="signoff-details">
-                <p>Florian Cascino</p>
-                <p><a href="mailto:florian.1201@live.com">florian.1201@live.com</a></p>
-                <p><a href="https://linkedin.com/in/PLACEHOLDER" rel="noopener noreferrer">LinkedIn</a></p>
-                <p class="last-updated">Laatst bijgewerkt: april 2026</p>
-            </address>
+        <section id="outro" class="outro" aria-label="Afsluiting" aria-hidden="true">
+            <div class="outro-inner">
+                <p class="outro-kicker">Florian Cascino</p>
+                <h2>Ik zoek werk in de ruimte waar vertrouwde expertise opnieuw verbonden kan worden.</h2>
+                <p class="outro-text">
+                    Daarom solliciteer ik naar het TNO Traineeship: om functies van binnenuit te leren kennen,
+                    en tegelijk te blijven bouwen aan kennis en samenwerking die er nog niet zijn.
+                </p>
+                <address class="outro-contact">
+                    <a href="mailto:florian.1201@live.com">florian.1201@live.com</a>
+                    <p>Strategic Product Design, TU Delft</p>
+                </address>
+            </div>
         </section>
     </main>
 
