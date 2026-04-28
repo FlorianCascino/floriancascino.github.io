@@ -1,81 +1,42 @@
 # Florian Cascino, voor TNO.
 
-Deze site is de verdieping achter de QR-code op Florians TNO-slide. De pagina herhaalt de slide niet, maar voert in kleine vorm uit waar zijn onderzoek naar twijfel in innovatiepraktijk over gaat: aannames zichtbaar maken, en mensen die die aannames erven uitnodigen om er hardop over te twijfelen.
-
-## PLACEHOLDER
-
-### Section 4, De twee directe antwoorden
-
-- Hoe ik impact maak: `[PLACEHOLDER, Florian schrijft hier het impactantwoord uit de slide, in iets uitgebreidere vorm.]`
-- Wat ik over mezelf wil leren: `[PLACEHOLDER, Florian schrijft hier het leerantwoord uit de slide, in iets uitgebreidere vorm.]`
-
-### Footer
-
-- LinkedIn-URL in `index.html`, de link staat nu op `https://www.linkedin.com/in/placeholder`
+Deze site is de verdieping achter de QR-code op Florians slide voor het TNO Traineeship. De pagina blijft sober aan de oppervlakte en laat de bezoeker pas na een klik zien hoe één projectzin uit elkaar kan vallen in doorvragen, rollen en praktische frictie.
 
 ## TODO
 
-### Section 2, De vormeigenaren
+### Blok 3, demo
 
-- Vervang `assets/figures/beleidsmaker-gemeente.svg` door een ingescande handtekening of definitieve lijntekening
-- Vervang `assets/figures/netbeheerder.svg` door een ingescande handtekening of definitieve lijntekening
-- Vervang `assets/figures/mkb-ondernemer.svg` door een ingescande handtekening of definitieve lijntekening
-- Vervang `assets/figures/buurtbewoner.svg` door een ingescande handtekening of definitieve lijntekening
+- Controleer de drie projectzinnen in [script.js](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/script.js) en pas ze aan als de formulering op de slide nog verschuift.
+- Controleer alle doorvragen in [script.js](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/script.js) op ritme en lengte.
+- Controleer alle spreekzinnen in [script.js](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/script.js) op geloofwaardigheid per rol.
 
-## EDITABLE
+### Footer
 
-### Hero
+- Vervang de LinkedIn-placeholder in [index.html](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/index.html) door de echte URL. Nu staat daar `https://www.linkedin.com/in/placeholder`.
 
-- `Een korte verkenning, gebaseerd op mijn Honours-onderzoek naar twijfel in innovatiepraktijk.`
+### Figuren
 
-### Section 1, De aannamekaart
-
-- Kop: `Lees deze projectomschrijving zoals een vormeigenaar dat doet.`
-- Caption: `Vormeigenaren zijn de mensen die de aannames van een project erven, niet bedacht hebben. Bij TNO zijn dat vaak de mensen die later in een traject instromen. Specialisten, beleidsmakers, bewoners, klanten.`
-- Projectzin: `We onderzoeken hoe een bedrijventerrein een lokale energiehub kan vormen, omdat het net vol zit en de ondernemers willen verduurzamen.`
-- Reveal label `lokale`: `aanname: de schaal staat al vast.`
-- Reveal label `net`: `aanname: één stem bepaalt wat 'vol' betekent.`
-- Reveal label `ondernemers`: `aanname: deze rol vertegenwoordigt het terrein.`
-- Reveal label `willen`: `aanname: deze richting is al gekozen.`
-- Reveal label `energiehub`: `aanname: de oplossing zit al in de vraag.`
-- Mechanisme `containment`: `Het mechanisme: containment. Twijfel verdwijnt vaak in de eis dat het al meetbaar moet zijn.`
-- Mechanisme `legitimatie`: `Het mechanisme: legitimatie. Wiens twijfel telt als informatie, en wiens niet.`
-- Mechanisme `lokalisatie van veiligheid`: `Het mechanisme: lokalisatie van veiligheid. Twijfel blijft in kleine kringen hangen.`
-- Mechanisme `affectieve escalatie`: `Het mechanisme: affectieve escalatie. Hoe verder in een traject, hoe duurder twijfel persoonlijk wordt.`
-- Mechanisme `gemiste reframing`: `Het mechanisme: gemiste reframing. De vraag is al beantwoord voordat ze gesteld is.`
-- CTA-tekst: `Nodig de vormeigenaren uit om mee te twijfelen`
-
-### Section 2, De vormeigenaren
-
-- Kop: `Vier vormeigenaren betreden de tekening.`
-- Caption: `Elk spreekt één twijfel uit, geformuleerd als een recht. De rechten komen uit een pamflet dat ik tijdens mijn onderzoek schreef voor mensen die werken binnen organisaties die al vorm hebben gekregen.`
-- Speech `BELEIDSMAKER GEMEENTE`: `Ik mag hardop twijfelen of 'lokaal' onze grens is.`
-- Speech `NETBEHEERDER`: `Ik mag niet weten of 'vol' over een jaar nog klopt.`
-- Speech `MKB-ONDERNEMER`: `Ik mag vroeg twijfelen of 'verduurzamen' hier hetzelfde betekent als bij ons.`
-- Speech `BUURTBEWONER`: `Ik mag vragen of de hub iemand vergeet die er ook woont.`
-- Ochre regel: `De zin is een kaart geworden. Dit is het werk waar ik bij TNO aan wil bijdragen.`
-
-### Section 3, Wat dit kleine ding net deed
-
-- Kop: `Wat dit kleine ding net deed.`
-- Paragraaf: `Bovenstaand is een werkdemo, geen presentatie. De woorden in een projectzin zijn aannames die ergens vandaan komen. Mijn werk is om die aannames zichtbaar te maken, en de mensen die ze erven uit te nodigen om er hardop over te twijfelen, in een ruimte die voor die twijfel ontworpen is. Dat is wat ik in een traineeship bij TNO verder wil leren ontwerpen.`
+- Vervang [assets/figures/variant-a.svg](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/assets/figures/variant-a.svg) door een eigen scan of lijntekening.
+- Vervang [assets/figures/variant-b.svg](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/assets/figures/variant-b.svg) door een eigen scan of lijntekening.
+- Vervang [assets/figures/variant-c.svg](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/assets/figures/variant-c.svg) door een eigen scan of lijntekening.
+- Vervang [assets/figures/variant-d.svg](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/assets/figures/variant-d.svg) door een eigen scan of lijntekening.
 
 ## Lokaal draaien
 
-- Open `index.html` direct in een browser.
+- Open [index.html](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/index.html) direct in een browser.
 - Of start de map in VS Code met Live Server.
 
-## SVG vervangen door handtekening
+## Placeholder-SVG vervangen
 
-- De placeholderfiguren staan in `assets/figures/`.
-- Houd voor een vervangende figuur bij voorkeur een `viewBox` van ongeveer `0 0 600 600` aan.
-- Gebruik bij andere schetsen ongeveer `400 x 300` als uitgangspunt.
-- SVG heeft de voorkeur boven PNG, omdat lijnwerk dan scherp blijft op mobiel en desktop.
-- Als je een scan vervangt, behoud dan de bestandsnaam zodat `index.html` niet hoeft te veranderen.
-- Als PNG toch nodig is, gebruik een transparante achtergrond en houd de beeldverhouding van het huidige bestand aan.
+- Bewerk het passende bestand in [assets/figures](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/assets/figures).
+- Houd bij voorkeur `viewBox="0 0 600 600"` aan.
+- SVG heeft de voorkeur boven PNG. Lijnwerk blijft dan scherp.
+- De pagina gebruikt dezelfde vier varianten ook als inline symbolen onderaan [index.html](/Users/floriancascino/Documents/GitHub/floriancascino.github.io/index.html). Werk die symbolen mee bij als je de assetbestanden vervangt.
 
-## Decisions
+## Beslissingen
 
-- Kleurenpalet: achtergrond `#F4F0E8`, tekst `#1A1A1A`, dusty navy `#1F2D44`, warm ochre `#B7763B`
-- Gekozen TNO-domein in de werkzin: energie en materiaaltransities, uitgewerkt als lokale energiehub
-- Easing en timing: 200ms `ease` voor link- en woordinteractie, 300ms `ease` voor figuur- en slotregels, 400ms `ease` voor de CTA-onthulling
+- Palet: `#F4F0E8` als achtergrond, `#1A1A1A` als tekst, `#1F2D44` als dragende lijnkleur, `#B7763B` als accent en `#5C6779` als gedempte UI-kleur.
+- Drie vraagstukken: warmtetransitie, netcongestie en circulaire bouw. Die combinatie laat sociale, bestuurlijke en logistieke frictie naast elkaar zien.
+- Easing en timing: `200ms cubic-bezier(0.32, 0.72, 0, 1)` voor tabwissels, `300ms cubic-bezier(0.22, 1, 0.36, 1)` voor notitieblokken, `500ms cubic-bezier(0.22, 1, 0.36, 1)` voor de tweede laag, `700ms ease-out` voor de handgetekende underline en `760ms ease-out` voor de verbindingslijn.
+- Underline-varianten: vier `Q`-curves met lichte verschuiving in de middenpunten. De set wisselt tussen `26/50/5`, `22/50/6`, `28/53/4` en `24/50/5` als grove verdeling over de breedte.
+- Verbindingslijnen: vier cubic Bezier-varianten. Op desktop loopt de boog met control points tussen ongeveer `18%` en `72%` van de horizontale afstand. Op mobiel verschuift de boog naar kortere, meer verticale curves met kleine x-afwijking.
