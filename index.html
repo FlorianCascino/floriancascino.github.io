@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Florian Cascino, voor TNO.</title>
-    <meta name="description" content="Een korte enactment van twijfel in innovatiepraktijk, als verdieping bij mijn aanmelding voor het TNO Traineeship.">
+    <meta name="description" content="Een korte verkenning, ter verdieping bij mijn aanmelding voor het TNO Traineeship.">
     <meta name="theme-color" content="#F4F0E8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,142 +12,51 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="site-main">
+    <main class="page-shell">
         <section class="hero" aria-labelledby="hero-title">
-            <div class="hero-inner">
+            <div class="section-inner hero-inner">
                 <p class="eyebrow">VOOR HET TNO TRAINEESHIP</p>
-                <h1 id="hero-title">Twijfel is geen vertraging. Het is werkmateriaal.</h1>
+                <h1 id="hero-title" class="hero-title">
+                    <span>De wereld wordt complexer.</span>
+                    <span>De vraagstukken waar we voor staan volgen die beweging.</span>
+                </h1>
                 <p class="hero-meta">Florian Cascino, MSc Strategic Product Design.</p>
                 <span class="hero-rule" aria-hidden="true"></span>
-                <p class="hero-note">Een korte verkenning, gebaseerd op mijn Honours-onderzoek naar twijfel in innovatiepraktijk.</p>
+                <p class="hero-note">Een korte verkenning, ter verdieping bij mijn aanmelding voor het TNO Traineeship.</p>
             </div>
         </section>
 
-        <section id="aannamekaart" class="section section-map" aria-labelledby="map-title">
-            <div class="section-inner">
-                <h2 id="map-title">Lees deze projectomschrijving zoals een vormeigenaar dat doet.</h2>
-                <p class="section-caption">Vormeigenaren zijn de mensen die de aannames van een project erven, niet bedacht hebben. Bij TNO zijn dat vaak de mensen die later in een traject instromen. Specialisten, beleidsmakers, bewoners, klanten.</p>
-
-                <div class="sentence-block">
-                    <div class="sentence-layout">
-                        <p class="project-sentence" id="project-sentence">
-                            We onderzoeken hoe een bedrijventerrein een
-                            <span class="assumption" data-assumption="lokale">
-                                <button type="button" class="assumption-button" data-assumption-button aria-controls="note-lokale" aria-expanded="false" aria-label="aanname: de schaal staat al vast.">lokale</button>
-                            </span>
-                            <span class="assumption" data-assumption="energiehub">
-                                <button type="button" class="assumption-button" data-assumption-button aria-controls="note-energiehub" aria-expanded="false" aria-label="aanname: de oplossing zit al in de vraag.">energiehub</button>
-                            </span>
-                            kan vormen, omdat het
-                            <span class="assumption" data-assumption="net">
-                                <button type="button" class="assumption-button" data-assumption-button aria-controls="note-net" aria-expanded="false" aria-label="aanname: één stem bepaalt wat 'vol' betekent.">net</button>
-                            </span>
-                            vol zit en de
-                            <span class="assumption" data-assumption="ondernemers">
-                                <button type="button" class="assumption-button" data-assumption-button aria-controls="note-ondernemers" aria-expanded="false" aria-label="aanname: deze rol vertegenwoordigt het terrein.">ondernemers</button>
-                            </span>
-                            <span class="assumption" data-assumption="willen">
-                                <button type="button" class="assumption-button" data-assumption-button aria-controls="note-willen" aria-expanded="false" aria-label="aanname: deze richting is al gekozen.">willen</button>
-                            </span>
-                            verduurzamen.
-                        </p>
-
-                        <div class="assumption-notes" aria-live="polite">
-                            <div class="assumption-note" id="note-lokale" hidden>
-                                <span class="note-label">aanname: de schaal staat al vast.</span>
-                                <span class="note-mechanism"><em>Het mechanisme: containment. Twijfel verdwijnt vaak in de eis dat het al meetbaar moet zijn.</em></span>
-                            </div>
-                            <div class="assumption-note" id="note-energiehub" hidden>
-                                <span class="note-label">aanname: de oplossing zit al in de vraag.</span>
-                                <span class="note-mechanism"><em>Het mechanisme: gemiste reframing. De vraag is al beantwoord voordat ze gesteld is.</em></span>
-                            </div>
-                            <div class="assumption-note" id="note-net" hidden>
-                                <span class="note-label">aanname: één stem bepaalt wat 'vol' betekent.</span>
-                                <span class="note-mechanism"><em>Het mechanisme: legitimatie. Wiens twijfel telt als informatie, en wiens niet.</em></span>
-                            </div>
-                            <div class="assumption-note" id="note-ondernemers" hidden>
-                                <span class="note-label">aanname: deze rol vertegenwoordigt het terrein.</span>
-                                <span class="note-mechanism"><em>Het mechanisme: lokalisatie van veiligheid. Twijfel blijft in kleine kringen hangen.</em></span>
-                            </div>
-                            <div class="assumption-note" id="note-willen" hidden>
-                                <span class="note-label">aanname: deze richting is al gekozen.</span>
-                                <span class="note-mechanism"><em>Het mechanisme: affectieve escalatie. Hoe verder in een traject, hoe duurder twijfel persoonlijk wordt.</em></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p id="assumption-progress" class="assumption-progress" aria-live="polite">0 van 5 aannames zichtbaar</p>
-                    <div id="assumption-live" class="sr-only" aria-live="polite"></div>
-                    <button type="button" id="invite-button" class="invite-button" aria-hidden="true">Nodig de vormeigenaren uit om mee te twijfelen</button>
-                </div>
-            </div>
-        </section>
-
-        <section id="vormeigenaren" class="section section-figures" aria-labelledby="figures-title">
-            <div class="section-inner">
-                <h2 id="figures-title">Vier vormeigenaren betreden de tekening.</h2>
-                <p class="section-caption">Elk spreekt één twijfel uit, geformuleerd als een recht. De rechten komen uit een pamflet dat ik tijdens mijn onderzoek schreef voor mensen die werken binnen organisaties die al vorm hebben gekregen.</p>
-
-                <div class="figure-grid" data-figure-grid>
-                    <figure class="role-figure" data-figure>
-                        <img src="assets/figures/beleidsmaker-gemeente.svg" alt="Schets van een staande beleidsmaker van de gemeente" width="160" height="160">
-                        <figcaption>
-                            <p class="role-label">BELEIDSMAKER GEMEENTE</p>
-                            <p class="role-speech"><em>Ik mag hardop twijfelen of 'lokaal' onze grens is.</em></p>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="role-figure" data-figure>
-                        <img src="assets/figures/netbeheerder.svg" alt="Schets van een staande netbeheerder" width="160" height="160">
-                        <figcaption>
-                            <p class="role-label">NETBEHEERDER</p>
-                            <p class="role-speech"><em>Ik mag niet weten of 'vol' over een jaar nog klopt.</em></p>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="role-figure" data-figure>
-                        <img src="assets/figures/mkb-ondernemer.svg" alt="Schets van een staande MKB-ondernemer" width="160" height="160">
-                        <figcaption>
-                            <p class="role-label">MKB-ONDERNEMER</p>
-                            <p class="role-speech"><em>Ik mag vroeg twijfelen of 'verduurzamen' hier hetzelfde betekent als bij ons.</em></p>
-                        </figcaption>
-                    </figure>
-
-                    <figure class="role-figure" data-figure>
-                        <img src="assets/figures/buurtbewoner.svg" alt="Schets van een staande buurtbewoner" width="160" height="160">
-                        <figcaption>
-                            <p class="role-label">BUURTBEWONER</p>
-                            <p class="role-speech"><em>Ik mag vragen of de hub iemand vergeet die er ook woont.</em></p>
-                        </figcaption>
-                    </figure>
-                </div>
-
-                <p id="kaart-echo" class="kaart-echo" aria-live="polite">De zin is een kaart geworden. Dit is het werk waar ik bij TNO aan wil bijdragen.</p>
-            </div>
-        </section>
-
-        <section class="section" aria-labelledby="demo-title">
+        <section class="intro-block" aria-label="Inleiding">
             <div class="section-inner section-narrow">
-                <h2 id="demo-title">Wat dit kleine ding net deed.</h2>
-                <p class="body-copy">Bovenstaand is een werkdemo, geen presentatie. De woorden in een projectzin zijn aannames die ergens vandaan komen. Mijn werk is om die aannames zichtbaar te maken, en de mensen die ze erven uit te nodigen om er hardop over te twijfelen, in een ruimte die voor die twijfel ontworpen is. Dat is wat ik in een traineeship bij TNO verder wil leren ontwerpen.</p>
+                <p>Hieronder staan drie vraagstukken zoals ze bij TNO geformuleerd zouden kunnen zijn. Klik op de onderstreepte passages om door te vragen, en klik nog eens om de stem te horen die hierachter staat. Vormeigenaren noem ik de mensen die later in een traject instromen, en die de aannames van een project erven in plaats van bedacht hebben.</p>
             </div>
         </section>
 
-        <section class="section" aria-labelledby="answers-title">
-            <div class="section-inner section-narrow">
-                <h2 id="answers-title">De twee directe antwoorden.</h2>
-
-                <div class="answer-block">
-                    <h3>Hoe ik impact maak.</h3>
-                    <p class="placeholder-copy">[PLACEHOLDER, Florian schrijft hier het impactantwoord uit de slide, in iets uitgebreidere vorm.]</p>
+        <section class="demo-block" aria-label="Drie vraagstukken">
+            <div class="section-inner demo-inner">
+                <div class="demo-tabs" role="tablist" aria-label="Kies een vraagstuk">
+                    <button type="button" id="tab-warmtetransitie" class="demo-tab is-active" role="tab" aria-controls="panel-warmtetransitie" aria-selected="true" tabindex="0" data-tab-index="0">1. WARMTETRANSITIE</button>
+                    <button type="button" id="tab-netcongestie" class="demo-tab" role="tab" aria-controls="panel-netcongestie" aria-selected="false" tabindex="-1" data-tab-index="1">2. NETCONGESTIE</button>
+                    <button type="button" id="tab-circulaire-bouw" class="demo-tab" role="tab" aria-controls="panel-circulaire-bouw" aria-selected="false" tabindex="-1" data-tab-index="2">3. CIRCULAIRE BOUW</button>
                 </div>
+                <div class="demo-stage" id="demo-stage"></div>
+            </div>
+        </section>
+
+        <section class="answers-block" aria-label="Twee antwoorden">
+            <div class="section-inner section-narrow">
+                <article class="answer-entry" aria-labelledby="impact-title">
+                    <h2 id="impact-title">Hoe ik impact wil maken.</h2>
+                    <p>De wereld wordt complexer, en de vraagstukken waar we voor staan volgen die beweging. Het is menselijk om ze aan te pakken vanuit wat we al kennen: een vertrouwd kennisdomein, een bewezen methode, een sector waarin we thuis zijn. Ook in een expertgedreven organisatie als TNO is die reflex sterk.</p>
+                    <p>Waar ik impact wil maken, is in het begeleiden van collega's en betrokkenen uit die vertrouwde oplossingsruimte. Samen bouwen aan kennisdomeinen die er nog niet zijn, omdat de uitdagingen van de toekomst dat vragen. Dat werk vraagt een ruimte waar handelingen niet direct leiden tot onomkeerbaarheid, en fouten niet worden nagedragen. Die ruimte mede vormgeven, dat is waar ik mijn bijdrage zie.</p>
+                </article>
 
                 <hr class="section-rule">
 
-                <div class="answer-block">
-                    <h3>Wat ik over mezelf wil leren.</h3>
-                    <p class="placeholder-copy">[PLACEHOLDER, Florian schrijft hier het leerantwoord uit de slide, in iets uitgebreidere vorm.]</p>
-                </div>
+                <article class="answer-entry" aria-labelledby="learn-title">
+                    <h2 id="learn-title">Wat ik over mezelf wil leren.</h2>
+                    <p>Zo is mijn manier van werken. Maar ik ben me ervan bewust dat ik tot nu toe telkens kort bij één rol heb stilgestaan. Wat ik wil leren is hoe deze manier van werken zich vormt wanneer ik hem combineer met de eisen van een specifieke functie. Een projectleider werkt vanuit andere prioriteiten dan een consultant, en een onderzoeker weer anders. Het traineeship is voor mij de uitgelezen kans om functiespecifieke vaardigheden op te doen én ze te combineren met de fundamentele aanpak waarmee ik impact wil maken.</p>
+                </article>
             </div>
         </section>
     </main>
@@ -155,11 +64,50 @@
     <footer class="site-footer">
         <div class="section-inner section-narrow">
             <hr class="section-rule">
-            <p>Florian Cascino, <a href="mailto:florian.1201@live.com">florian.1201@live.com</a></p>
+            <p><a href="mailto:florian.1201@live.com">Florian Cascino, florian.1201@live.com</a></p>
             <p><a href="https://www.linkedin.com/in/placeholder">LinkedIn</a></p>
             <p>Laatst bijgewerkt: 28 april 2026</p>
         </div>
     </footer>
+
+    <svg class="figure-sprite" aria-hidden="true" focusable="false" width="0" height="0">
+        <symbol id="figure-a" viewBox="0 0 600 600">
+            <path d="M248 86c15-15 41-15 57 0 16 15 20 41 8 62-12 21-37 32-60 26-23-6-39-28-39-51 0-14 5-28 15-37Z" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M286 181c-26 11-49 32-62 57-22 44-25 100-10 152" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M308 181c27 14 48 37 59 64 17 42 17 91 1 147" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M245 271c20 18 46 30 73 34" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M356 267c-18 16-39 29-62 36" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M256 339c-26 71-34 126-28 166" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M334 337c24 74 30 129 20 170" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="figure-b" viewBox="0 0 600 600">
+            <path d="M274 76c19-10 42-8 58 6 16 14 22 37 15 57-7 20-27 35-48 36-21 1-42-12-52-31-10-20-6-47 10-60 5-4 10-6 17-8Z" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M285 180c-32 18-55 48-67 81-15 44-14 90-2 137" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M317 180c25 12 47 34 61 60 23 44 31 100 21 161" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M235 258c23 8 46 10 69 6" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M316 263c24 5 48 4 71-4" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M266 333c-19 75-24 130-15 173" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M339 338c17 70 20 126 9 168" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="figure-c" viewBox="0 0 600 600">
+            <path d="M292 76c16-6 35-2 49 10 15 13 21 35 14 54-7 20-25 34-45 37-20 3-41-7-53-25-11-17-13-42-1-59 9-8 21-14 36-17Z" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M297 179c-19 15-34 35-45 58-25 54-28 121-11 195" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M321 181c30 18 51 46 62 78 18 49 16 110-6 181" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M245 278c17 11 36 18 56 22" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M351 279c-19 11-40 20-62 25" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M278 335c-11 74-11 132 0 175" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M342 335c9 74 8 132-4 175" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="figure-d" viewBox="0 0 600 600">
+            <path d="M267 78c20-11 47-10 65 3 17 12 27 34 24 56-3 21-18 41-38 49-19 8-44 6-60-7-17-12-28-35-24-56 2-19 14-35 33-45Z" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M286 182c-23 14-43 34-57 58-29 51-38 118-26 193" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M327 181c26 10 49 30 64 56 31 51 40 118 26 194" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M230 256c21 14 45 25 71 30" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M373 260c-19 14-42 24-67 29" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M283 340c-6 74-2 132 13 172" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M351 339c1 72-6 129-22 171" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+    </svg>
 
     <script src="script.js"></script>
 </body>
