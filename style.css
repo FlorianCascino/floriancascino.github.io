@@ -6,6 +6,10 @@
     --muted: #5c6779;
     --rule: rgba(31, 45, 68, 0.18);
     --paper: rgba(247, 244, 238, 0.94);
+    --sheet: #f7f3eb;
+    --sheet-band: rgba(31, 45, 68, 0.045);
+    --sheet-rule: rgba(92, 103, 121, 0.12);
+    --sheet-margin: rgba(183, 118, 59, 0.28);
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-display: Georgia, 'Times New Roman', serif;
     --ease-fade: cubic-bezier(0.32, 0.72, 0, 1);
@@ -69,6 +73,39 @@ a {
 
 .demo-inner {
     width: min(calc(100% - 2.5rem), 57.5rem);
+    position: relative;
+    padding: 1.8rem 1.65rem 2.4rem 3rem;
+    border: 1px solid rgba(31, 45, 68, 0.16);
+    background-color: var(--sheet);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.demo-inner::before,
+.demo-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.demo-inner::before {
+    z-index: -2;
+    background-image:
+        linear-gradient(to right, transparent 0, transparent 2.1rem, var(--sheet-margin) 2.1rem, var(--sheet-margin) 2.18rem, transparent 2.18rem),
+        repeating-linear-gradient(to bottom, transparent 0, transparent 2.84rem, var(--sheet-rule) 2.84rem, var(--sheet-rule) 2.92rem);
+}
+
+.demo-inner::after {
+    left: 0.72rem;
+    right: auto;
+    top: 1.1rem;
+    bottom: 1.1rem;
+    width: 0.9rem;
+    z-index: -1;
+    background-image: radial-gradient(circle, rgba(244, 240, 232, 0.98) 0 0.24rem, transparent 0.27rem);
+    background-size: 0.9rem 3.55rem;
+    background-repeat: repeat-y;
 }
 
 .hero {
@@ -155,11 +192,19 @@ a {
     padding: 0 0 3.5rem;
 }
 
+.demo-block {
+    padding-top: 0.6rem;
+    padding-bottom: 4.2rem;
+    background: var(--sheet-band);
+}
+
 .demo-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem 1.5rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
+    padding: 0 0 1rem 0.2rem;
+    border-bottom: 1px solid rgba(31, 45, 68, 0.1);
 }
 
 .demo-tab {
@@ -185,6 +230,7 @@ a {
 .demo-stage {
     position: relative;
     min-height: 22rem;
+    padding-left: 0.1rem;
     transition: height var(--duration-fade) var(--ease-fade);
 }
 
@@ -227,6 +273,7 @@ a {
     display: grid;
     gap: 1.5rem;
     align-items: start;
+    padding-bottom: 0.3rem;
 }
 
 .scenario-main,
@@ -319,14 +366,26 @@ a {
 .scenario-notes {
     display: grid;
     gap: 1rem;
+    padding-top: 0.35rem;
 }
 
 .note-block {
-    border: 1px solid var(--rule);
-    background: var(--paper);
-    padding: 1rem;
+    position: relative;
+    border: 1px solid rgba(31, 45, 68, 0.12);
+    background: rgba(247, 243, 235, 0.82);
+    padding: 1rem 1rem 1.05rem 1.2rem;
     opacity: 0;
     animation: note-in var(--duration-note) var(--ease-reveal) forwards;
+}
+
+.note-block::before {
+    content: '';
+    position: absolute;
+    left: 0.62rem;
+    top: 0.7rem;
+    bottom: 0.7rem;
+    width: 1px;
+    background: rgba(183, 118, 59, 0.18);
 }
 
 @keyframes note-in {
@@ -507,6 +566,11 @@ a {
     padding-top: 2rem;
 }
 
+.preview-demo .demo-block {
+    padding-top: 0;
+    background: transparent;
+}
+
 @media (min-width: 900px) {
     .hero {
         padding-top: 4rem;
@@ -523,6 +587,22 @@ a {
 }
 
 @media (max-width: 899px) {
+    .demo-inner {
+        padding: 1.45rem 1.05rem 1.7rem 2.1rem;
+    }
+
+    .demo-inner::before {
+        background-image:
+            linear-gradient(to right, transparent 0, transparent 1.45rem, var(--sheet-margin) 1.45rem, var(--sheet-margin) 1.52rem, transparent 1.52rem),
+            repeating-linear-gradient(to bottom, transparent 0, transparent 2.62rem, var(--sheet-rule) 2.62rem, var(--sheet-rule) 2.7rem);
+    }
+
+    .demo-inner::after {
+        left: 0.38rem;
+        width: 0.72rem;
+        background-size: 0.72rem 3.35rem;
+    }
+
     .scenario-sentence {
         line-height: 1.72;
     }
