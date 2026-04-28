@@ -242,6 +242,7 @@
             panel: panel,
             layout: layout,
             lines: lines,
+            main: main,
             sentence: sentence,
             notes: notes,
             passages: {},
@@ -342,10 +343,6 @@
                 openPassage(targetState, passageState);
             }
 
-            if (entry.level > 1 && passageState.phase === 1) {
-                expandPassage(targetState, passageState);
-            }
-
             if (entry.choice && passageState.meta.choiceOptions && !passageState.choice) {
                 option = passageState.meta.choiceOptions.filter(function (choiceOption) {
                     return choiceOption.key === entry.choice;
@@ -393,9 +390,10 @@
     }
 
     function buildSentence(state) {
-        state.scenario.passages.forEach(function (passage) {
+        state.scenario.passages.forEach(function (passage, passageIndex) {
             state.passages[passage.key] = {
                 meta: passage,
+            noteSlot: typeof passage.noteSlot === 'number' ? passage.noteSlot : passageIndex,
                 phase: 0,
                 choice: null,
                 wrapper: null,
@@ -456,25 +454,19 @@
     function handlePassageClick(state, key) {
         var passageState = state.passages[key];
 
-        if (!passageState) {
+        if (!passageState || passageState.phase !== 0) {
             return;
         }
 
-        if (passageState.phase === 0) {
-            openPassage(state, passageState);
-            return;
-        }
-
-        if (passageState.phase === 1) {
-            expandPassage(state, passageState);
-        }
+        openPassage(state, passageState);
     }
 
     function openPassage(state, passageState) {
         var note = document.createElement('div');
         var question = document.createElement('p');
-        var hint = document.createElement('p');
         var connector = createSvgElement('path');
+        var detail = document.createElement('div');
+        var detailDelay = reducedMotion ? 0 : 120;
 
         passageState.phase = 1;
         passageState.needsUnderlineAnimation = true;
@@ -491,23 +483,34 @@
 
         note.id = 'note-' + state.scenario.id + '-' + passageState.meta.key;
         note.className = 'note-block';
+        note.dataset.slot = String(passageState.noteSlot);
 
         question.className = 'note-question';
         question.textContent = passageState.meta.question;
 
-        hint.className = 'note-hint';
-        hint.textContent = 'klik nog eens om de stem te horen die hierachter staat.';
+        detail.className = 'note-detail';
+
+        if (passageState.meta.choiceOptions) {
+            detail.appendChild(buildChoiceSlot(state, passageState));
+        } else {
+            detail.appendChild(buildOwnerFigure(passageState.meta.role, passageState.meta.speech, passageState.meta.variant, state.scenario.id + '-' + passageState.meta.key));
+        }
 
         connector.classList.add('connector-stroke');
 
         note.appendChild(question);
-        note.appendChild(hint);
+        note.appendChild(detail);
         state.notes.appendChild(note);
         state.lines.appendChild(connector);
 
         passageState.note = note;
-        passageState.hint = hint;
+        passageState.detail = detail;
         passageState.connector = connector;
+
+        window.setTimeout(function () {
+            detail.classList.add('is-visible');
+            scheduleSync(state);
+        }, detailDelay);
 
         scheduleSync(state);
     }
@@ -864,6 +867,10 @@
         width = Math.max(1, Math.round(layoutRect.width));
         height = Math.max(1, Math.round(layoutRect.height));
 
+        if (state.main) {
+            state.main.style.setProperty('--sentence-row', window.getComputedStyle(state.sentence).lineHeight);
+        }
+
         state.lines.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
         state.lines.setAttribute('width', String(width));
         state.lines.setAttribute('height', String(height));
@@ -930,7 +937,7 @@
         if (desktop) {
             startX = buttonRect.right - layoutRect.left - 2;
             startY = buttonRect.bottom - layoutRect.top + 6;
-            endX = noteRect.left - layoutRect.left + 16;
+            endX = noteRect.left + (noteRect.width / 2) < buttonRect.left ? noteRect.right - layoutRect.left - 18 : noteRect.left - layoutRect.left + 16;
             endY = noteRect.top - layoutRect.top + 18;
         } else {
             startX = buttonRect.left - layoutRect.left + (buttonRect.width * 0.64);
