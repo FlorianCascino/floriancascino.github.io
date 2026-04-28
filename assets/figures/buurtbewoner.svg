@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholderfiguur buurtbewoner</title>
+  <desc id="desc">Een ruwe lijntekening van een staande figuur met twee iets open armen.</desc>
+  <g fill="none" stroke="#1F2D44" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M300 110c34 4 57 29 57 62 0 32-24 56-57 57-35 1-61-24-61-58 0-35 25-61 61-61"/>
+    <path d="M249 251c29-20 76-22 103-3"/>
+    <path d="M268 254c-9 36-14 73-14 111 0 34 3 69 11 104"/>
+    <path d="M333 252c10 36 15 74 14 113-1 34-6 67-15 102"/>
+    <path d="M264 302c-34 6-72 19-108 41"/>
+    <path d="M338 299c29 8 63 20 101 39"/>
+    <path d="M267 470c-13 27-24 53-34 78"/>
+    <path d="M335 468c14 26 26 51 40 78"/>
+    <path d="M157 346c10 17 12 35 9 52"/>
+    <path d="M443 340c6 18 6 39-1 58"/>
+  </g>
+</svg>
