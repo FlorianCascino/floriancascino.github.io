@@ -856,6 +856,7 @@
 
     function syncScenarioLayout(state) {
         var layoutRect;
+        var requiredHeight;
         var width;
         var height;
 
@@ -864,6 +865,18 @@
         }
 
         layoutRect = state.layout.getBoundingClientRect();
+
+        if (desktopMedia.matches) {
+            requiredHeight = getRequiredLayoutHeight(state, layoutRect);
+
+            if (requiredHeight > layoutRect.height) {
+                state.layout.style.minHeight = requiredHeight + 'px';
+                layoutRect = state.layout.getBoundingClientRect();
+            }
+        } else {
+            state.layout.style.removeProperty('min-height');
+        }
+
         width = Math.max(1, Math.round(layoutRect.width));
         height = Math.max(1, Math.round(layoutRect.height));
 
@@ -889,6 +902,22 @@
         if (state === scenarioStates[activeIndex] && !isTransitioning) {
             stage.style.height = state.panel.offsetHeight + 'px';
         }
+    }
+
+    function getRequiredLayoutHeight(state, layoutRect) {
+        var bottom = state.main.getBoundingClientRect().bottom - layoutRect.top + 24;
+
+        Object.keys(state.passages).forEach(function (key) {
+            var note = state.passages[key].note;
+
+            if (!note) {
+                return;
+            }
+
+            bottom = Math.max(bottom, note.getBoundingClientRect().bottom - layoutRect.top + 20);
+        });
+
+        return Math.ceil(bottom);
     }
 
     function updateUnderlineGeometry(passageState) {
