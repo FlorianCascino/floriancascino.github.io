@@ -21,6 +21,7 @@
     scenarios = [
         {
             id: 'warmtetransitie',
+            lead: 'Als ik morgen aan dit vraagstuk zou beginnen, zijn dit de woorden waar ik zelf als eerste bij zou doorvragen.',
             segments: [
                 { text: 'We onderzoeken hoe een naoorlogse wijk ' },
                 { passage: 'collectief' },
@@ -77,6 +78,7 @@
         },
         {
             id: 'netcongestie',
+            lead: 'Als ik morgen aan dit vraagstuk zou beginnen, zijn dit de woorden waar ik zelf als eerste bij zou doorvragen.',
             segments: [
                 { text: 'We ontwerpen een ' },
                 { passage: 'lokaal' },
@@ -133,6 +135,7 @@
         },
         {
             id: 'circulaire-bouw',
+            lead: 'Als ik morgen aan dit vraagstuk zou beginnen, zijn dit de woorden waar ik zelf als eerste bij zou doorvragen.',
             segments: [
                 { text: 'We ontwikkelen een ' },
                 { passage: 'paspoort' },
@@ -234,6 +237,7 @@
         var lines = createSvgElement('svg');
         var main = document.createElement('div');
         var margin = document.createElement('div');
+        var lead = document.createElement('p');
         var sentence = document.createElement('p');
         var notes = document.createElement('div');
         var state = {
@@ -243,6 +247,7 @@
             layout: layout,
             lines: lines,
             main: main,
+            lead: lead,
             sentence: sentence,
             notes: notes,
             passages: {},
@@ -261,12 +266,15 @@
         lines.setAttribute('aria-hidden', 'true');
         main.className = 'scenario-main';
         margin.className = 'scenario-margin';
+        lead.className = 'scenario-lead';
+        lead.textContent = scenario.lead;
         sentence.className = 'scenario-sentence';
         notes.className = 'scenario-notes';
         notes.setAttribute('aria-live', 'polite');
 
         buildSentence(state);
 
+        main.appendChild(lead);
         main.appendChild(sentence);
         margin.appendChild(notes);
         layout.appendChild(lines);
