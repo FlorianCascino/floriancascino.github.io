@@ -200,32 +200,62 @@ a {
 }
 
 .demo-tabs {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
+    align-items: flex-end;
+    gap: 0.45rem;
     margin-bottom: 2rem;
-    padding: 0 0 1rem 0.2rem;
+    padding: 0 0 0.78rem 1.2rem;
     border-bottom: 1px solid rgba(31, 45, 68, 0.1);
+}
+
+.demo-tabs::before {
+    content: '';
+    position: absolute;
+    left: 0.28rem;
+    top: 0.18rem;
+    bottom: 0.9rem;
+    width: 0.12rem;
+    background: linear-gradient(to bottom, rgba(183, 118, 59, 0.08), rgba(183, 118, 59, 0.34), rgba(183, 118, 59, 0.08));
 }
 
 .demo-tab {
     appearance: none;
-    border: 0;
-    border-bottom: 1px solid transparent;
-    background: transparent;
-    padding: 0 0 0.32rem;
+    position: relative;
+    border: 1px solid rgba(31, 45, 68, 0.12);
+    border-bottom: 0;
+    border-radius: 0.9rem 0.9rem 0 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.78), rgba(234, 228, 218, 0.94));
+    padding: 0.74rem 1rem 0.72rem;
     cursor: pointer;
-    transition: color var(--duration-fade) ease, border-color var(--duration-fade) ease;
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5), 0 12px 24px rgba(31, 45, 68, 0.05);
+    transform: translateY(4px);
+    transition: color var(--duration-fade) ease, border-color var(--duration-fade) ease, transform var(--duration-fade) ease, box-shadow var(--duration-fade) ease, background var(--duration-fade) ease;
+}
+
+.demo-tab::before {
+    content: '';
+    position: absolute;
+    left: 0.72rem;
+    right: 0.72rem;
+    top: 0.35rem;
+    height: 0.22rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.48);
 }
 
 .demo-tab:hover,
 .demo-tab:focus-visible {
     color: var(--ochre);
+    transform: translateY(2px);
 }
 
 .demo-tab.is-active {
     color: var(--navy);
-    border-bottom-color: var(--navy);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(247, 243, 235, 0.98));
+    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.64), 0 16px 28px rgba(31, 45, 68, 0.08);
+    transform: translateY(0);
 }
 
 .demo-stage {
@@ -416,6 +446,8 @@ a {
 
 .note-block {
     position: relative;
+    --drag-x: 0px;
+    --drag-y: 0px;
     width: 100%;
     border: 1px solid rgba(31, 45, 68, 0.1);
     background: var(--note-bg, var(--sticky-yellow));
@@ -423,7 +455,9 @@ a {
     box-shadow: 0 15px 32px rgba(31, 45, 68, 0.16);
     opacity: 0;
     transform-origin: top center;
+    transform: translate(var(--drag-x), var(--drag-y)) rotate(var(--note-tilt, 0deg));
     animation: note-in var(--duration-note) var(--ease-reveal) forwards;
+    transition: box-shadow var(--duration-fade) ease;
 }
 
 .note-block::before {
@@ -443,12 +477,12 @@ a {
 @keyframes note-in {
     from {
         opacity: 0;
-        transform: translateY(14px) rotate(var(--note-tilt, 0deg));
+        transform: translate(var(--drag-x), calc(var(--drag-y) + 14px)) rotate(var(--note-tilt, 0deg));
     }
 
     to {
         opacity: 1;
-        transform: rotate(var(--note-tilt, 0deg));
+        transform: translate(var(--drag-x), var(--drag-y)) rotate(var(--note-tilt, 0deg));
     }
 }
 
@@ -473,7 +507,57 @@ a {
 }
 
 .note-question {
+    padding-right: 3.8rem;
     line-height: 1.58;
+}
+
+.note-reveal,
+.note-close {
+    appearance: none;
+    border: 1px solid rgba(92, 103, 121, 0.34);
+    background: rgba(255, 255, 255, 0.46);
+    color: var(--navy);
+}
+
+.note-reveal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 0.9rem;
+    padding: 0.48rem 0.72rem;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    transition: color var(--duration-fade) ease, border-color var(--duration-fade) ease, background var(--duration-fade) ease;
+}
+
+.note-reveal:hover,
+.note-reveal:focus-visible,
+.note-close:hover,
+.note-close:focus-visible {
+    color: var(--ochre);
+    border-color: rgba(183, 118, 59, 0.7);
+    background: rgba(255, 255, 255, 0.64);
+}
+
+.note-close {
+    position: absolute;
+    top: 0.78rem;
+    right: 0.78rem;
+    padding: 0.2rem 0.48rem 0.22rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.note-block.is-revealed .note-reveal {
+    display: none;
+}
+
+.note-block.is-dragging {
+    box-shadow: 0 22px 42px rgba(31, 45, 68, 0.22);
 }
 
 .note-detail {
@@ -670,6 +754,13 @@ a {
         pointer-events: auto;
         width: min(18rem, 100%);
         max-width: 18rem;
+        cursor: grab;
+        touch-action: none;
+    }
+
+    .note-block.is-dragging {
+        cursor: grabbing;
+        z-index: 5;
     }
 
     .note-block[data-slot='0'] {
@@ -698,6 +789,15 @@ a {
 @media (max-width: 899px) {
     .demo-inner {
         padding: 1.45rem 0.8rem 1.7rem;
+    }
+
+    .demo-tabs {
+        gap: 0.4rem;
+        padding-left: 0.7rem;
+    }
+
+    .demo-tab {
+        padding: 0.68rem 0.82rem 0.62rem;
     }
 
     .scenario-sentence {

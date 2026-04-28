@@ -88,7 +88,7 @@
                 { passage: 'uitwisselen' },
                 { text: ' en we de ' },
                 { passage: 'overbelasting' },
-                { text: '.' }
+                { text: ' van het elektriciteitsnet oplossen.' }
             ],
             passages: [
                 {
@@ -123,8 +123,8 @@
                 },
                 {
                     key: 'overbelasting',
-                    visible: 'overbelasting van het elektriciteitsnet oplossen',
-                    aria: 'overbelasting van het elektriciteitsnet oplossen',
+                    visible: 'overbelasting',
+                    aria: 'overbelasting',
                     question: 'Houden we het proces lang genoeg open om te zien of de oplossing wel in een nieuw net zit, en niet in het aanpassen van productieprocessen?',
                     role: 'netbeheerder',
                     speech: 'De huidige wet- en regelgeving is niet geschreven voor de operationele experimenten die hier worden voorgesteld.',
@@ -351,6 +351,10 @@
                 openPassage(targetState, passageState);
             }
 
+            if ((entry.level > 1 || entry.choice) && passageState.phase === 1) {
+                expandPassage(targetState, passageState);
+            }
+
             if (entry.choice && passageState.meta.choiceOptions && !passageState.choice) {
                 option = passageState.meta.choiceOptions.filter(function (choiceOption) {
                     return choiceOption.key === entry.choice;
@@ -401,7 +405,7 @@
         state.scenario.passages.forEach(function (passage, passageIndex) {
             state.passages[passage.key] = {
                 meta: passage,
-            noteSlot: typeof passage.noteSlot === 'number' ? passage.noteSlot : passageIndex,
+                noteSlot: typeof passage.noteSlot === 'number' ? passage.noteSlot : passageIndex,
                 phase: 0,
                 choice: null,
                 wrapper: null,
@@ -416,6 +420,10 @@
                 choiceInvite: null,
                 choiceButtons: null,
                 choiceSelection: null,
+                revealButton: null,
+                closeButton: null,
+                dragX: 0,
+                dragY: 0,
                 needsUnderlineAnimation: false,
                 needsConnectorAnimation: false
             };
@@ -473,8 +481,8 @@
         var note = document.createElement('div');
         var question = document.createElement('p');
         var connector = createSvgElement('path');
-        var detail = document.createElement('div');
-        var detailDelay = reducedMotion ? 0 : 120;
+        var revealButton = document.createElement('button');
+        var closeButton = document.createElement('button');
 
         passageState.phase = 1;
         passageState.needsUnderlineAnimation = true;
@@ -492,39 +500,53 @@
         note.id = 'note-' + state.scenario.id + '-' + passageState.meta.key;
         note.className = 'note-block';
         note.dataset.slot = String(passageState.noteSlot);
+        note.dataset.phase = 'question';
 
         question.className = 'note-question';
         question.textContent = passageState.meta.question;
 
-        detail.className = 'note-detail';
+        revealButton.type = 'button';
+        revealButton.className = 'note-reveal';
+        revealButton.textContent = getRevealButtonText(passageState);
+        revealButton.addEventListener('click', function () {
+            expandPassage(state, passageState);
+        });
 
-        if (passageState.meta.choiceOptions) {
-            detail.appendChild(buildChoiceSlot(state, passageState));
-        } else {
-            detail.appendChild(buildOwnerFigure(passageState.meta.role, passageState.meta.speech, passageState.meta.variant, state.scenario.id + '-' + passageState.meta.key));
-        }
+        closeButton.type = 'button';
+        closeButton.className = 'note-close';
+        closeButton.textContent = 'sluit';
+        closeButton.setAttribute('aria-label', 'sluit notitie');
+        closeButton.addEventListener('click', function () {
+            closePassage(state, passageState.meta.key);
+        });
 
         connector.classList.add('connector-stroke');
 
+        note.appendChild(closeButton);
         note.appendChild(question);
-        note.appendChild(detail);
+        note.appendChild(revealButton);
         state.notes.appendChild(note);
         state.lines.appendChild(connector);
 
         passageState.note = note;
-        passageState.detail = detail;
+        passageState.detail = null;
         passageState.connector = connector;
+        passageState.revealButton = revealButton;
+        passageState.closeButton = closeButton;
+        passageState.dragX = 0;
+        passageState.dragY = 0;
 
-        window.setTimeout(function () {
-            detail.classList.add('is-visible');
-            scheduleSync(state);
-        }, detailDelay);
+        bindNoteInteractions(state, passageState);
 
         scheduleSync(state);
     }
 
     function expandPassage(state, passageState) {
         var detail = document.createElement('div');
+
+        if (!passageState.note || passageState.phase !== 1) {
+            return;
+        }
 
         passageState.phase = 2;
         detail.className = 'note-detail';
@@ -535,18 +557,15 @@
             detail.appendChild(buildOwnerFigure(passageState.meta.role, passageState.meta.speech, passageState.meta.variant, state.scenario.id + '-' + passageState.meta.key));
         }
 
+        if (passageState.revealButton) {
+            passageState.revealButton.hidden = true;
+            passageState.revealButton.disabled = true;
+        }
+
+        passageState.note.dataset.phase = 'detail';
+        passageState.note.classList.add('is-revealed');
         passageState.note.appendChild(detail);
         passageState.detail = detail;
-
-        if (passageState.hint) {
-            passageState.hint.classList.add('is-fading');
-            window.setTimeout(function () {
-                if (passageState.hint) {
-                    passageState.hint.hidden = true;
-                    scheduleSync(state);
-                }
-            }, reducedMotion ? 0 : 300);
-        }
 
         window.requestAnimationFrame(function () {
             detail.classList.add('is-visible');
@@ -557,6 +576,117 @@
             window.setTimeout(function () {
                 scheduleSync(state);
             }, 520);
+        }
+    }
+
+    function closePassage(state, key) {
+        var passageState = state.passages[key];
+
+        if (!passageState || passageState.phase === 0) {
+            return;
+        }
+
+        if (passageState.note && passageState.note.parentNode) {
+            passageState.note.parentNode.removeChild(passageState.note);
+        }
+
+        if (passageState.connector && passageState.connector.parentNode) {
+            passageState.connector.parentNode.removeChild(passageState.connector);
+        }
+
+        passageState.phase = 0;
+        passageState.choice = null;
+        passageState.wrapper.classList.remove('is-open');
+        passageState.button.setAttribute('aria-expanded', 'false');
+        passageState.underline.hidden = true;
+        passageState.note = null;
+        passageState.detail = null;
+        passageState.connector = null;
+        passageState.revealButton = null;
+        passageState.closeButton = null;
+        passageState.choiceSlot = null;
+        passageState.choiceInvite = null;
+        passageState.choiceButtons = null;
+        passageState.choiceSelection = null;
+        passageState.dragX = 0;
+        passageState.dragY = 0;
+
+        scheduleSync(state);
+    }
+
+    function getRevealButtonText(passageState) {
+        if (passageState.meta.choiceOptions) {
+            return 'welke stem ontbreekt hier nog?';
+        }
+
+        return 'welke stem zit achter deze vraag?';
+    }
+
+    function bindNoteInteractions(state, passageState) {
+        var note = passageState.note;
+
+        if (!note) {
+            return;
+        }
+
+        note.addEventListener('pointerdown', function (event) {
+            if (!desktopMedia.matches) {
+                return;
+            }
+
+            if (event.button && event.button !== 0) {
+                return;
+            }
+
+            if (event.target.closest('button')) {
+                return;
+            }
+
+            startNoteDrag(state, passageState, event);
+        });
+    }
+
+    function startNoteDrag(state, passageState, event) {
+        var note = passageState.note;
+        var originX = passageState.dragX || 0;
+        var originY = passageState.dragY || 0;
+        var startX = event.clientX;
+        var startY = event.clientY;
+
+        if (!note) {
+            return;
+        }
+
+        event.preventDefault();
+        note.classList.add('is-dragging');
+
+        if (note.setPointerCapture) {
+            note.setPointerCapture(event.pointerId);
+        }
+
+        note.addEventListener('pointermove', handleMove);
+        note.addEventListener('pointerup', handleEnd);
+        note.addEventListener('pointercancel', handleEnd);
+
+        function handleMove(moveEvent) {
+            passageState.dragX = originX + (moveEvent.clientX - startX);
+            passageState.dragY = originY + (moveEvent.clientY - startY);
+            note.style.setProperty('--drag-x', passageState.dragX + 'px');
+            note.style.setProperty('--drag-y', passageState.dragY + 'px');
+            scheduleSync(state);
+        }
+
+        function handleEnd(endEvent) {
+            note.classList.remove('is-dragging');
+
+            if (note.releasePointerCapture && note.hasPointerCapture && note.hasPointerCapture(endEvent.pointerId)) {
+                note.releasePointerCapture(endEvent.pointerId);
+            }
+
+            note.removeEventListener('pointermove', handleMove);
+            note.removeEventListener('pointerup', handleEnd);
+            note.removeEventListener('pointercancel', handleEnd);
+            scheduleSync(state);
         }
     }
 
@@ -870,6 +1000,10 @@
 
         if (!state || state.panel.hidden) {
             return;
+        }
+
+        if (desktopMedia.matches) {
+            state.layout.style.removeProperty('min-height');
         }
 
         layoutRect = state.layout.getBoundingClientRect();
