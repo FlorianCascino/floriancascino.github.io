@@ -770,6 +770,11 @@ a {
     padding-top: 1.6rem;
 }
 
+.answer-signoff {
+    max-width: 42rem;
+    color: var(--text);
+}
+
 .answer-entry {
     padding: 2rem 2rem 2.2rem;
     border: 1px solid rgba(32, 50, 74, 0.08);
@@ -904,15 +909,8 @@ a {
     }
 
     .answers-block .section-inner {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.35rem;
-        align-items: start;
-        width: min(calc(100% - 2.5rem), 74rem);
-    }
-
-    .answers-block .section-rule {
-        display: none;
+        display: block;
+        width: min(calc(100% - 2.5rem), 54rem);
     }
 
     .site-footer .section-inner {
