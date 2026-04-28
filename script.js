@@ -994,7 +994,9 @@
 
     function syncScenarioLayout(state) {
         var layoutRect;
+        var mainRect;
         var requiredHeight;
+        var sentenceRect;
         var width;
         var height;
 
@@ -1023,7 +1025,10 @@
         height = Math.max(1, Math.round(layoutRect.height));
 
         if (state.main) {
+            mainRect = state.main.getBoundingClientRect();
+            sentenceRect = state.sentence.getBoundingClientRect();
             state.main.style.setProperty('--sentence-row', window.getComputedStyle(state.sentence).lineHeight);
+            state.main.style.setProperty('--sentence-start', Math.max(0, Math.round(sentenceRect.top - mainRect.top)) + 'px');
         }
 
         state.lines.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
@@ -1090,6 +1095,7 @@
 
     function updateConnectorGeometry(state, passageState, layoutRect) {
         var buttonRect;
+        var connectorPoints;
         var noteRect;
         var startX;
         var startY;
@@ -1106,10 +1112,11 @@
         noteRect = passageState.note.getBoundingClientRect();
 
         if (desktop) {
-            startX = buttonRect.right - layoutRect.left - 2;
-            startY = buttonRect.bottom - layoutRect.top + 6;
-            endX = noteRect.left + (noteRect.width / 2) < buttonRect.left ? noteRect.right - layoutRect.left - 18 : noteRect.left - layoutRect.left + 16;
-            endY = noteRect.top - layoutRect.top + 18;
+            connectorPoints = getDesktopConnectorPoints(buttonRect, noteRect, layoutRect);
+            startX = connectorPoints.startX;
+            startY = connectorPoints.startY;
+            endX = connectorPoints.endX;
+            endY = connectorPoints.endY;
         } else {
             startX = buttonRect.left - layoutRect.left + (buttonRect.width * 0.64);
             startY = buttonRect.bottom - layoutRect.top + 6;
@@ -1128,6 +1135,67 @@
         }
 
         settleStroke(passageState.connector, length);
+    }
+
+    function getDesktopConnectorPoints(buttonRect, noteRect, layoutRect) {
+        var bestDistance = Infinity;
+        var bestPair = null;
+        var endCandidates;
+        var startCandidates;
+
+        startCandidates = [
+            {
+                x: buttonRect.left - layoutRect.left + 10,
+                y: buttonRect.bottom - layoutRect.top + 6
+            },
+            {
+                x: buttonRect.right - layoutRect.left - 10,
+                y: buttonRect.bottom - layoutRect.top + 6
+            },
+            {
+                x: buttonRect.left - layoutRect.left + (buttonRect.width * 0.5),
+                y: buttonRect.bottom - layoutRect.top + 8
+            }
+        ];
+
+        endCandidates = [
+            {
+                x: noteRect.left - layoutRect.left + 18,
+                y: noteRect.top - layoutRect.top + Math.min(noteRect.height * 0.34, 44)
+            },
+            {
+                x: noteRect.right - layoutRect.left - 18,
+                y: noteRect.top - layoutRect.top + Math.min(noteRect.height * 0.34, 44)
+            },
+            {
+                x: noteRect.left - layoutRect.left + (noteRect.width * 0.5),
+                y: noteRect.top - layoutRect.top + 18
+            },
+            {
+                x: noteRect.left - layoutRect.left + (noteRect.width * 0.5),
+                y: noteRect.bottom - layoutRect.top - 18
+            }
+        ];
+
+        startCandidates.forEach(function (startPoint) {
+            endCandidates.forEach(function (endPoint) {
+                var deltaX = endPoint.x - startPoint.x;
+                var deltaY = endPoint.y - startPoint.y;
+                var distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    bestPair = {
+                        startX: startPoint.x,
+                        startY: startPoint.y,
+                        endX: endPoint.x,
+                        endY: endPoint.y
+                    };
+                }
+            });
+        });
+
+        return bestPair;
     }
 
     function playStrokeAnimation(path) {
@@ -1175,34 +1243,13 @@
         var control2Y;
         var deltaX = endX - startX;
         var deltaY = endY - startY;
+        var variantOffset = ((variantIndex % 4) - 1.5) * 5;
 
         if (desktop) {
-            switch (variantIndex % 4) {
-                case 0:
-                    control1X = startX + (deltaX * 0.18);
-                    control1Y = startY + 14;
-                    control2X = startX + (deltaX * 0.72);
-                    control2Y = endY - 26;
-                    break;
-                case 1:
-                    control1X = startX + (deltaX * 0.22);
-                    control1Y = startY - 2;
-                    control2X = startX + (deltaX * 0.7);
-                    control2Y = endY - 18;
-                    break;
-                case 2:
-                    control1X = startX + (deltaX * 0.14);
-                    control1Y = startY + 20;
-                    control2X = startX + (deltaX * 0.66);
-                    control2Y = endY - 32;
-                    break;
-                default:
-                    control1X = startX + (deltaX * 0.2);
-                    control1Y = startY + 10;
-                    control2X = startX + (deltaX * 0.64);
-                    control2Y = endY - 20;
-                    break;
-            }
+            control1X = startX + (deltaX * 0.24);
+            control1Y = startY + Math.max(-18, Math.min(32, deltaY * 0.18)) + variantOffset;
+            control2X = endX - (deltaX * 0.24);
+            control2Y = endY - Math.max(-22, Math.min(36, deltaY * 0.2)) - variantOffset;
         } else {
             switch (variantIndex % 4) {
                 case 0:
