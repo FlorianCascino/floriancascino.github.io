@@ -470,19 +470,26 @@
     function handlePassageClick(state, key) {
         var passageState = state.passages[key];
 
-        if (!passageState || passageState.phase !== 0) {
+        if (!passageState) {
             return;
         }
 
-        openPassage(state, passageState);
+        if (passageState.phase === 0) {
+            openPassage(state, passageState);
+            return;
+        }
+
+        if (passageState.phase === 1) {
+            expandPassage(state, passageState);
+        }
     }
 
     function openPassage(state, passageState) {
         var note = document.createElement('div');
         var question = document.createElement('p');
         var connector = createSvgElement('path');
-        var revealButton = document.createElement('button');
         var closeButton = document.createElement('button');
+        var hint = document.createElement('p');
 
         passageState.phase = 1;
         passageState.needsUnderlineAnimation = true;
@@ -505,12 +512,8 @@
         question.className = 'note-question';
         question.textContent = passageState.meta.question;
 
-        revealButton.type = 'button';
-        revealButton.className = 'note-reveal';
-        revealButton.textContent = getRevealButtonText(passageState);
-        revealButton.addEventListener('click', function () {
-            expandPassage(state, passageState);
-        });
+        hint.className = 'note-hint';
+        hint.textContent = 'klik nog eens voor de stem die deze vraag in de praktijk stelt.';
 
         closeButton.type = 'button';
         closeButton.className = 'note-close';
@@ -524,14 +527,15 @@
 
         note.appendChild(closeButton);
         note.appendChild(question);
-        note.appendChild(revealButton);
+        note.appendChild(hint);
         state.notes.appendChild(note);
         state.lines.appendChild(connector);
 
         passageState.note = note;
         passageState.detail = null;
+        passageState.hint = hint;
         passageState.connector = connector;
-        passageState.revealButton = revealButton;
+        passageState.revealButton = null;
         passageState.closeButton = closeButton;
         passageState.dragX = 0;
         passageState.dragY = 0;
@@ -557,9 +561,14 @@
             detail.appendChild(buildOwnerFigure(passageState.meta.role, passageState.meta.speech, passageState.meta.variant, state.scenario.id + '-' + passageState.meta.key));
         }
 
-        if (passageState.revealButton) {
-            passageState.revealButton.hidden = true;
-            passageState.revealButton.disabled = true;
+        if (passageState.hint) {
+            passageState.hint.classList.add('is-fading');
+            window.setTimeout(function () {
+                if (passageState.hint) {
+                    passageState.hint.hidden = true;
+                    scheduleSync(state);
+                }
+            }, reducedMotion ? 0 : 220);
         }
 
         passageState.note.dataset.phase = 'detail';
@@ -600,6 +609,7 @@
         passageState.button.setAttribute('aria-expanded', 'false');
         passageState.underline.hidden = true;
         passageState.note = null;
+        passageState.hint = null;
         passageState.detail = null;
         passageState.connector = null;
         passageState.revealButton = null;
@@ -612,14 +622,6 @@
         passageState.dragY = 0;
 
         scheduleSync(state);
-    }
-
-    function getRevealButtonText(passageState) {
-        if (passageState.meta.choiceOptions) {
-            return 'welke stem ontbreekt hier nog?';
-        }
-
-        return 'welke stem zit achter deze vraag?';
     }
 
     function bindNoteInteractions(state, passageState) {

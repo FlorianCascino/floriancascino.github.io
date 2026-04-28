@@ -603,6 +603,18 @@ a {
     line-height: 1.62;
 }
 
+.note-hint {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.45;
+    transition: opacity var(--duration-fade) ease;
+}
+
+.note-hint.is-fading {
+    opacity: 0;
+}
+
 .note-reveal,
 .note-close {
     appearance: none;
