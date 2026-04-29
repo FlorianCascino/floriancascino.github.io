@@ -2,6 +2,11 @@
 
 Deze site is de verdieping achter de QR-code op Florians slide voor het TNO Traineeship. De pagina blijft sober aan de oppervlakte en laat de bezoeker pas na een klik zien hoe één projectzin uit elkaar kan vallen in doorvragen, rollen en praktische frictie.
 
+## Versies
+
+- v9: tweede ronde verfijningen - hand-drawn lijnen terug, één stem vervangen, twee stemmen verkort, drie keuze-stemmen verkort, introparagraaf onder de hero toegevoegd, afsluitparagraaf herschreven, typografische fix voor vraagstuk 3.
+- De vormeigenaar-silhouetten blijven als TODO gemarkeerd.
+
 ## TODO
 
 ### Figuren
