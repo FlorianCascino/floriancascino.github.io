@@ -513,7 +513,7 @@
         question.textContent = passageState.meta.question;
 
         hint.className = 'note-hint';
-        hint.textContent = 'klik nog eens voor de stem die deze vraag in de praktijk stelt.';
+        hint.textContent = 'klik nog eens op de term voor wie deze vraag in de praktijk stelt.';
 
         closeButton.type = 'button';
         closeButton.className = 'note-close';
