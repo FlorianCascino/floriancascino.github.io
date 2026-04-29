@@ -485,6 +485,7 @@ a {
     color: inherit;
     font: inherit;
     line-height: inherit;
+    text-align: left;
     cursor: pointer;
     transition: color var(--duration-fade) ease, border-color var(--duration-fade) ease;
 }
@@ -797,6 +798,12 @@ a {
     color: var(--text);
 }
 
+@media (min-width: 900px) {
+    .passage[data-scenario-id='circulaire-bouw'][data-passage-key='hergebruiken'] .passage-button {
+        white-space: nowrap;
+    }
+}
+
 .answer-entry {
     padding: 2rem 2rem 2.2rem;
     border: 1px solid rgba(32, 50, 74, 0.08);
@@ -950,6 +957,10 @@ a {
 }
 
 @media (max-width: 899px) {
+    .passage[data-scenario-id='circulaire-bouw'][data-passage-key='hergebruiken'] .passage-button {
+        white-space: normal;
+    }
+
     .demo-inner {
         padding: 1.5rem 1rem 1.85rem;
     }

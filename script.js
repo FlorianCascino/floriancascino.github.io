@@ -442,10 +442,14 @@
             var underline = createSvgElement('svg');
 
             wrapper.className = 'passage';
+            wrapper.dataset.scenarioId = state.scenario.id;
+            wrapper.dataset.passageKey = passageState.meta.key;
 
             button.type = 'button';
             button.className = 'passage-button';
             button.textContent = passageState.meta.visible;
+            button.dataset.scenarioId = state.scenario.id;
+            button.dataset.passageKey = passageState.meta.key;
             button.setAttribute('aria-label', "klik om door te vragen op de woorden '" + passageState.meta.aria + "'");
             button.setAttribute('aria-controls', noteId);
             button.setAttribute('aria-expanded', 'false');
