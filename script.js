@@ -1098,6 +1098,9 @@
     function updateConnectorGeometry(state, passageState, layoutRect) {
         var buttonRect;
         var connectorPoints;
+        var corridorX;
+        var corridorOffset;
+        var mainRect;
         var noteRect;
         var startX;
         var startY;
@@ -1114,11 +1117,17 @@
         noteRect = passageState.note.getBoundingClientRect();
 
         if (desktop) {
-            connectorPoints = getDesktopConnectorPoints(buttonRect, noteRect, layoutRect);
+            mainRect = state.main.getBoundingClientRect();
+            connectorPoints = getDesktopConnectorPoints(buttonRect, noteRect, layoutRect, mainRect);
             startX = connectorPoints.startX;
             startY = connectorPoints.startY;
             endX = connectorPoints.endX;
             endY = connectorPoints.endY;
+            corridorOffset = ((passageState.meta.pathVariant % 4) - 1.5) * 6;
+            corridorX = connectorPoints.routesLeft
+                ? mainRect.left - layoutRect.left - 18 + corridorOffset
+                : mainRect.right - layoutRect.left + 18 + corridorOffset;
+            corridorX = Math.max(8, Math.min(Math.round(layoutRect.width) - 8, corridorX));
         } else {
             startX = buttonRect.left - layoutRect.left + (buttonRect.width * 0.64);
             startY = buttonRect.bottom - layoutRect.top + 6;
@@ -1126,7 +1135,7 @@
             endY = noteRect.top - layoutRect.top + 14;
         }
 
-        passageState.connector.setAttribute('d', getConnectorPath(startX, startY, endX, endY, passageState.meta.pathVariant, desktop));
+        passageState.connector.setAttribute('d', getConnectorPath(startX, startY, endX, endY, passageState.meta.pathVariant, desktop, corridorX));
         length = passageState.connector.getTotalLength();
         passageState.connector.style.setProperty('--len', String(length));
 
@@ -1139,65 +1148,23 @@
         settleStroke(passageState.connector, length);
     }
 
-    function getDesktopConnectorPoints(buttonRect, noteRect, layoutRect) {
-        var bestDistance = Infinity;
-        var bestPair = null;
-        var endCandidates;
-        var startCandidates;
+    function getDesktopConnectorPoints(buttonRect, noteRect, layoutRect, mainRect) {
+        var buttonCenterX = buttonRect.left + (buttonRect.width * 0.5);
+        var mainCenterX = mainRect.left + (mainRect.width * 0.5);
+        var noteCenterX = noteRect.left + (noteRect.width * 0.5);
+        var routesLeft = noteCenterX < mainCenterX || noteCenterX < buttonCenterX;
 
-        startCandidates = [
-            {
-                x: buttonRect.left - layoutRect.left + 10,
-                y: buttonRect.bottom - layoutRect.top + 6
-            },
-            {
-                x: buttonRect.right - layoutRect.left - 10,
-                y: buttonRect.bottom - layoutRect.top + 6
-            },
-            {
-                x: buttonRect.left - layoutRect.left + (buttonRect.width * 0.5),
-                y: buttonRect.bottom - layoutRect.top + 8
-            }
-        ];
-
-        endCandidates = [
-            {
-                x: noteRect.left - layoutRect.left + 18,
-                y: noteRect.top - layoutRect.top + Math.min(noteRect.height * 0.34, 44)
-            },
-            {
-                x: noteRect.right - layoutRect.left - 18,
-                y: noteRect.top - layoutRect.top + Math.min(noteRect.height * 0.34, 44)
-            },
-            {
-                x: noteRect.left - layoutRect.left + (noteRect.width * 0.5),
-                y: noteRect.top - layoutRect.top + 18
-            },
-            {
-                x: noteRect.left - layoutRect.left + (noteRect.width * 0.5),
-                y: noteRect.bottom - layoutRect.top - 18
-            }
-        ];
-
-        startCandidates.forEach(function (startPoint) {
-            endCandidates.forEach(function (endPoint) {
-                var deltaX = endPoint.x - startPoint.x;
-                var deltaY = endPoint.y - startPoint.y;
-                var distance = (deltaX * deltaX) + (deltaY * deltaY);
-
-                if (distance < bestDistance) {
-                    bestDistance = distance;
-                    bestPair = {
-                        startX: startPoint.x,
-                        startY: startPoint.y,
-                        endX: endPoint.x,
-                        endY: endPoint.y
-                    };
-                }
-            });
-        });
-
-        return bestPair;
+        return {
+            startX: routesLeft
+                ? buttonRect.left - layoutRect.left + 2
+                : buttonRect.right - layoutRect.left - 2,
+            startY: buttonRect.bottom - layoutRect.top + 6,
+            endX: routesLeft
+                ? noteRect.right - layoutRect.left - 10
+                : noteRect.left - layoutRect.left + 10,
+            endY: noteRect.top - layoutRect.top + Math.min(noteRect.height * 0.34, 44),
+            routesLeft: routesLeft
+        };
     }
 
     function playStrokeAnimation(path) {
@@ -1221,6 +1188,10 @@
         path.classList.remove('drawing');
         path.style.strokeDasharray = String(length);
         path.style.strokeDashoffset = '0';
+
+        if (path.classList.contains('connector-stroke')) {
+            path.style.opacity = '1';
+        }
     }
 
     function getUnderlinePath(width, variantIndex) {
@@ -1238,7 +1209,7 @@
         }
     }
 
-    function getConnectorPath(startX, startY, endX, endY, variantIndex, desktop) {
+    function getConnectorPath(startX, startY, endX, endY, variantIndex, desktop, corridorX) {
         var control1X;
         var control1Y;
         var control2X;
@@ -1248,10 +1219,10 @@
         var variantOffset = ((variantIndex % 4) - 1.5) * 5;
 
         if (desktop) {
-            control1X = startX + (deltaX * 0.24);
-            control1Y = startY + Math.max(-18, Math.min(32, deltaY * 0.18)) + variantOffset;
-            control2X = endX - (deltaX * 0.24);
-            control2Y = endY - Math.max(-22, Math.min(36, deltaY * 0.2)) - variantOffset;
+            control1X = corridorX;
+            control1Y = startY + 10 + variantOffset;
+            control2X = corridorX;
+            control2Y = endY - 10 - variantOffset;
         } else {
             switch (variantIndex % 4) {
                 case 0:
