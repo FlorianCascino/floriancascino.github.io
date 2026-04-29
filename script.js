@@ -59,7 +59,7 @@
                     visible: 'infrastructuur',
                     aria: 'infrastructuur',
                     question: 'Vragen we hier al om een strakke technische blauwdruk, terwijl we de sociale impact achter de voordeur nog niet in kaart hebben?',
-                    role: 'wijkverpleegkundige',
+                    role: 'buurtwerker',
                     speech: 'Achter de voordeur van mijn cliënten zie ik wat de echte impact is van een verbouwing op leven en gezondheid, en die staat zelden in het bouwplan.',
                     variant: 'c',
                     pathVariant: 2
