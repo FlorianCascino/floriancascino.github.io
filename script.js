@@ -50,7 +50,7 @@
                     aria: 'klimaatdoelen',
                     question: 'Dwingt deze stip op de horizon ons nu al tot keuzes waar we straks te diep in zitten om nog de koers te verleggen?',
                     role: 'lokale aannemer',
-                    speech: 'Het strakke tempo van de gemeente houdt helaas geen rekening met de schaarste aan vakmensen in mijn eigen agenda.',
+                    speech: 'Het tempo van de gemeente houdt geen rekening met de schaarste aan vakmensen.',
                     variant: 'b',
                     pathVariant: 1
                 },
@@ -167,19 +167,19 @@
                         {
                             key: 'architect',
                             label: 'architect',
-                            speech: 'Mijn ontwerpvrijheid verandert zodra we met onzekere voorraad gaan plannen, en dat vraagt om een ander gesprek met mijn opdrachtgever.',
+                            speech: 'Ik teken straks met materialen waarvan ik de geschiedenis niet ken.',
                             variant: 'd'
                         },
                         {
                             key: 'verzekeraar',
                             label: 'verzekeraar',
-                            speech: 'Ik kan geen polis afgeven op constructieve elementen waarvan de testgeschiedenis ontbreekt of niet eenduidig is.',
+                            speech: 'Voor materiaal zonder traceerbare oorsprong kan ik geen polis afgeven.',
                             variant: 'b'
                         },
                         {
                             key: 'beleidsmaker',
                             label: 'beleidsmaker',
-                            speech: 'Onze bestaande, risicomijdende aanbestedingsregels zijn niet ingericht op trajecten waar de exacte materiaalkeuze tot op het laatste moment open blijft.',
+                            speech: 'Onze regels rond nieuwbouw zijn niet geschreven voor hergebruikt materiaal.',
                             variant: 'a'
                         }
                     ],
